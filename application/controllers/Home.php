@@ -2,7 +2,7 @@
 defined("BASEPATH") or exit();
 
 Class Home extends CI_Controller{
-	
+
 	public function index(){
 		$curr = $this->cms->cek_login();
 		if($curr){
@@ -36,6 +36,8 @@ Class Home extends CI_Controller{
 
 		$this->load->view("/login");
 	}
+
+
 
 	public function logout(){
 		//hapus session bersangkutan

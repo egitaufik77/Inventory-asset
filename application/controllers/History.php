@@ -6,7 +6,7 @@ Class History extends CI_Controller{
 	public function index(){
 		$curr = shortcode_login();
 		$data['title'] = "Periode History";
-		$data['menu'] = 6;
+		$data['menu'] = 7;
 		$data['curr'] = $curr;
 
 		$this->load->model("mdsetting");
@@ -28,7 +28,7 @@ Class History extends CI_Controller{
 		$data['listdiv'] = $this->mdreport->listdiv("array");
 
 		$data['title'] = "History Laporan";
-		$data['menu'] = 6;
+		$data['menu'] = 7;
 		$data['curr'] = $curr;
 
 
@@ -96,7 +96,7 @@ Class History extends CI_Controller{
 					"id_master" => $idm,
 					"id_divisi" => $iddiv,
 					"tgl" => $skrg,
-					"jml" => $stk, 
+					"jml" => $stk,
 					"ket" => "Data sisa periode",
 					"stat" => 1
 				);
@@ -128,7 +128,7 @@ Class History extends CI_Controller{
 			$arr_terima[] = array(
 				"id" => null,
 				"id_master" => $idmaster,
-				"tgl" => $skrg, 
+				"tgl" => $skrg,
 				"jml" => $stok_akhir,
 				"ket" => "Data awal periode",
 				"stat" => 1
@@ -149,11 +149,11 @@ Class History extends CI_Controller{
 
 
 		//tabel translate : cc_terima, cc_kirim, cc_terjual
-		$sql = query("INSERT INTO cc_temp 
+		$sql = query("INSERT INTO cc_temp
 			SELECT NULL, $id_project, 'cc_terima', id_master, NULL, tgl, jml, ket, stat FROM cc_terima");
-		$sql = query("INSERT INTO cc_temp 
+		$sql = query("INSERT INTO cc_temp
 			SELECT NULL, $id_project, 'cc_kirim', id_master, id_divisi, tgl, jml, ket, stat FROM cc_kirim");
-		$sql = query("INSERT INTO cc_temp 
+		$sql = query("INSERT INTO cc_temp
 			SELECT NULL, $id_project, 'cc_terjual', id_master, id_divisi, tgl, jml, ket, stat FROM cc_terjual");
 
 		$this->db->truncate("cc_terima");

@@ -4,18 +4,21 @@ defined("BASEPATH") or exit();
 Class Login extends CI_Model{
 
 	public function login_process($username, $password){
-		$sql = query("SELECT * FROM cms_admin WHERE username = ".quote($username));
-		if($sql->num_rows() > 0){
-			$row = $sql->row_array();
-			if(password_verify($password, $row['password'])){
-				return true;
-			}
-			else{
-				return false;
-			}
-		}
-		return false;
-	}
+    $sql = query("SELECT * FROM cms_admin WHERE username = ".quote($username));
+    if($sql->num_rows() > 0){
+        $row = $sql->row_array();
+        if(password_verify($password, $row['password'])){
+            // Tambahkan baris ini:
+            query("DELETE FROM cms_admin_fail WHERE ip = ".quote($_SERVER['REMOTE_ADDR']));
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    return false;
+}
+
 
 	public function validate_session(){
 		$cek = query("SELECT * FROM cms_admin_fail WHERE stat = 0 AND ip = ".quote($_SERVER['REMOTE_ADDR']));
@@ -35,7 +38,7 @@ Class Login extends CI_Model{
 
 		//save data to database
 		if(query("INSERT INTO cms_admin_log VALUES (NULL, ".quote($username).", ".quote($tgl).", ".quote($expired).", ".quote($token).", ".quote($s['REMOTE_ADDR']).", ".quote($s['HTTP_USER_AGENT']).")")){
-	
+
 			$_SESSION['current_token'] = $token;
 
 		}

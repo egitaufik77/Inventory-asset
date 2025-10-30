@@ -6,7 +6,7 @@ Class Laporan extends CI_Controller{
 	public function index(){
 		$curr = shortcode_login();
 		$data['title'] = "Laporan";
-		$data['menu'] = 5;
+		$data['menu'] = 6;
 		$data['submenu'] = 51;
 		$data['curr'] = $curr;
 
